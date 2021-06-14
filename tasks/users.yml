@@ -1,0 +1,41 @@
+- name: loop through users
+  include_tasks: add-users.yml
+  loop: "{{users}}"
+  loop_control:
+    loop_var: user_name
+   
+- name: disable root ssh
+  lineinfile:
+    state: present
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+  become: yes
+  become_method: su
+
+- name: restart ssh
+  service:
+    name: sshd
+    state: restarted
+  become: yes
+  become_method: su
+
+
+#- name: make default group
+#  group: 
+#    name: "{{ development_user_group }}"
+#    state: present
+
+
+#- name: adduser development_users
+#  user: 
+#    name: "{{ item }}"
+#    groups: "{{ development_user_group }}"
+#  with_items: "{{ development_users }}"
+
+#- name: set up authkeys for development_users
+#  authorized_key: 
+#    user: "{{ item }}"
+#    key: "{{ lookup('file', '/home {{ item }}/.ssh/id_rsa.pub')}}" 
+#  with_items: "{{ development_users }}"
+

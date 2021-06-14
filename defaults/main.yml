@@ -1,0 +1,11 @@
+---
+# defaults file template
+
+# group vars
+bootstrap_jumpboxes: []
+bootstrap_nameservers: []
+bootstrap_user_group: nobody
+bootstrap_users: []
+
+# host vars
+# bastion_hostname: example_hostname

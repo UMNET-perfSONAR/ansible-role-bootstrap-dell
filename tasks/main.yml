@@ -1,0 +1,10 @@
+---
+# tasks file for ansible-role-bastion
+#
+#
+- name: IP restriction config
+  include: etc-hosts.yml
+
+- name: user setup
+  include: users.yml
+
