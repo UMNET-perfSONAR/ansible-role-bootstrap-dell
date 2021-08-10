@@ -1,18 +1,13 @@
+---
 # copy over the stuff from main into there
-#- name: hosts.allow for bastion jumpboxes
-#jj
-- name: hosts.allow for bastion jumpboxes
+
+- name: "hosts.allow {{ bootstrap_jumpboxes }}"
   lineinfile:
     path: /etc/hosts.allow
     line: "sshd: {{ item }}"
   with_items: "{{ bootstrap_jumpboxes }}"
 
-- name: hosts.deny sshd for bastion jumpboxes
+- name: hosts.deny sshd all
   lineinfile:
     path: /etc/hosts.deny
     line: "sshd: all"
-
-
-
-
-    

@@ -1,10 +1,17 @@
 ---
 # tasks file for ansible-role-bastion
-#
-#
+
 - name: IP restriction config
   include: etc-hosts.yml
+  when:
+    - bootstrap_jumpboxes is defined 
+    - bootstrap_jumpboxes | length > 0
 
 - name: user setup
   include: users.yml
+  when:
+    - bootstrap_users is defined 
+    - bootstrap_users | length > 0
+    - bootstrap_key_url is defined 
+    - bootstrap_key_url | length > 0
 

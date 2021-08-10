@@ -1,33 +1,12 @@
 ---
 # add the users 
 
-#- name: inner loop
-#  ansible.builtin.debug:
-#    msg: "user {{ user_name }}"  # ssh-key {{ user_name.key}}"
-
-
-- name: adduser development_users
+- name: adduser {{ user_name }}
   user: 
     name: "{{ user_name }}"
-  become: yes
-  become_method: su
 
-
-#    groups: "{{ development_user_group }}"
-
-#- name: Pull user keys from github
-#    get_url: 
-#    url: "https://github.com/UMNET-perfSONAR/plugin-development-ssh-keys/blob/main/{{ user_name}}.key"
-#    dest: "/home/maxwelli/ansible-playbook-bootstrap/{{ user_name }}.key"
-
-- name: set up authkeys for development_users
+- name: authkey for {{ user_name }}
   authorized_key: 
     user: "{{ user_name }}"
-    #key: https://github.com/maxwellLi-umich.keys
-    key: "https://raw.githubusercontent.com/UMNET-perfSONAR/bastion-ssh-keys/main/{{user_name}}.key"
-    #key: "{{ lookup('file', 'roles/ansible-role-bootstrap-dell/plugin-development-ssh-keys/{{user_name}}.key')}}"
+    key: "{{bootstrap_key_url}}/{{user_name}}.key"
     state: present
-  become: yes
-  become_method: su
-
-

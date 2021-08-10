@@ -1,6 +1,12 @@
 ---
 # template handlers file
 
+
+- name: restart_ssh
+  service:
+    name: sshd
+    state: restarted
+
 #- name: restart ntp
 #  service:
 #    name: "{{ ntp_service | default('ntpd') }}"
